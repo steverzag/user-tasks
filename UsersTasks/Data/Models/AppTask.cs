@@ -6,7 +6,7 @@ namespace UsersTasks.API.Data.Models
 	public class AppTask
 	{
 		public int Id { get; set; }
-		public string Title { get; set; }
+		public required string Title { get; set; }
 		public string? Description { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public AppTaskPriority Priority { get; set; }

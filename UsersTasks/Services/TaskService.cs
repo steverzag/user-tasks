@@ -52,7 +52,7 @@ namespace UsersTasks.API.Services
 		{
 			var task = await _dbContext.AppTasks.FindAsync(request.Id);
 
-			if (task == null)
+			if (task is null)
 			{
 				return null;
 			}
@@ -67,7 +67,7 @@ namespace UsersTasks.API.Services
 		public async Task<TaskDTO?> CompleteTaskAsync(int id)
 		{
 			var task = await _dbContext.AppTasks.FindAsync(id);
-			if (task == null)
+			if (task is null)
 			{
 				return null;
 			}
@@ -115,7 +115,7 @@ namespace UsersTasks.API.Services
 		public async Task DeleteTaskAsync(int id)
 		{
 			var task = await _dbContext.AppTasks.FindAsync(id);
-			if (task == null)
+			if (task is null)
 			{
 				return;
 			}

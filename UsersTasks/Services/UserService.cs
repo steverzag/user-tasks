@@ -17,7 +17,7 @@ namespace UsersTasks.API.Services
 		public async Task<UserDTO?> GetUserByIdAsync(int id)
 		{ 
 			var user = await _dbContext.Users.FindAsync(id);
-			if (user == null)
+			if (user is null)
 			{
 				return null;
 			}
@@ -46,7 +46,7 @@ namespace UsersTasks.API.Services
 		public async Task<UserDTO?> UpdateUserAsync(UpdateUserRequest request)
 		{
 			var user = await _dbContext.Users.FindAsync(request.Id);
-			if (user == null)
+			if (user is null)
 			{
 				return null;
 			}

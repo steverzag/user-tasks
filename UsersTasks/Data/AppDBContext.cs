@@ -32,13 +32,6 @@ namespace UsersTasks.API.Data
 				builder.Property(e => e.CreatedAt)
 					.HasDefaultValueSql("GETDATE()");
 			});
-			//modelBuilder.Entity<AppTask>()
-			//	.Property(t => t.Priority)
-			//	.HasConversion<int>();
-
-			//modelBuilder.Entity<AppTask>()
-			//	.Property(t => t.TaskStatus)
-			//	.HasConversion<int>();
 		}
 	}
 }

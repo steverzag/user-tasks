@@ -37,25 +37,25 @@ namespace UsersTasks.API.Endpoints
 				return Results.NotFound("user not found");
 			}
 
-			return await Task.FromResult(Results.Ok(user));
+			return Results.Ok(user);
 		}
 
 		private async static Task<IResult> CreateUser(CreateUserRequest request, UserService userService)
 		{
 			var userId = await userService.CreateUserAsync(request);
-			return await Task.FromResult(Results.CreatedAtRoute("UserById", routeValues: new { id = userId }));
+			return Results.CreatedAtRoute("UserById", routeValues: new { id = userId });
 		}
 
 		private async static Task<IResult> UpdateUser(UpdateUserRequest request, UserService userService)
 		{
 			var user = await userService.UpdateUserAsync(request);
-			return await Task.FromResult(Results.Ok(user));
+			return Results.Ok(user);
 		}
 
 		private async static Task<IResult> DeleteUser(int id, UserService userService)
 		{
 			await userService.DeleteUserAsync(id);
-			return await Task.FromResult(Results.Ok("user deleted"));
+			return Results.Ok("user deleted");
 		}
 	}
 }
