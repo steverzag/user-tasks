@@ -7,9 +7,9 @@ namespace UsersTasks.API.Endpoints
 {
 	public class TasksEndpoints : IEndpoints
 	{
-		public void RegisterEndpoints(IEndpointRouteBuilder app)
+		public void RegisterEndpoints(IEndpointRouteBuilder builder)
 		{
-			var group = app
+			var group = builder
 				.MapGroup("/tasks")
 				.WithTags("Tasks")
 				.AddFluentValidationAutoValidation();

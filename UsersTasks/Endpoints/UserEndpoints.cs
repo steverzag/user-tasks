@@ -55,7 +55,7 @@ namespace UsersTasks.API.Endpoints
 		private async static Task<IResult> DeleteUser(int id, UserService userService)
 		{
 			await userService.DeleteUserAsync(id);
-			return Results.Ok("user deleted");
+			return Results.NoContent();
 		}
 	}
 }

@@ -2,6 +2,6 @@
 {
 	public interface IEndpoints
 	{
-		void RegisterEndpoints(IEndpointRouteBuilder app);
+		void RegisterEndpoints(IEndpointRouteBuilder builder);
 	}
 }

@@ -5,39 +5,39 @@
 		public static void RegisterEndpoints(this WebApplication app)
 		{
 
-			static bool isAssignableToIAppEnpoints(Type t) =>
+			static bool isAssignableToIEndpoints(Type t) =>
 				!t.IsAbstract
 				&& !t.IsInterface
 				&& typeof(IEndpoints).IsAssignableFrom(t);
 
 			var type = typeof(IEndpoints);
-			var types = AppDomain.CurrentDomain.GetAssemblies()
-				.SelectMany(s => s.GetTypes())
-				.Where(isAssignableToIAppEnpoints);
+			var endpointsTypes = type.Assembly
+				.GetTypes()
+				.Where(isAssignableToIEndpoints);
 
-			List<string> failedImplementations = [];
-			foreach (var t in types)
+			List<string> failingImplementations = [];
+			foreach (var t in endpointsTypes)
 			{
 				var ctor = t.GetConstructor(Type.EmptyTypes);
 
 				if (ctor is null)
 				{
-					failedImplementations.Add($"{t.Name}: IAppEndpoints implementing classes must present an empty constructor");
+					failingImplementations.Add($"{t.Name}: IEndpoints implementing classes must present an empty constructor");
 					continue;
 				}
 
-				var appEndpoints = (IEndpoints)Activator.CreateInstance(t)!;
-				appEndpoints.RegisterEndpoints(app);
+				IEndpoints instance = (IEndpoints)Activator.CreateInstance(t)!;
+				instance.RegisterEndpoints(app);
 			}
 
-			if (failedImplementations.Count > 0)
+			if (failingImplementations.Count > 0)
 			{
-				throw new EnpointsRegisterFailedException("Some endpoints failed to register", failedImplementations);
+				throw new EnpointsRegisterFailedException(failingImplementations);
 			}
 		}
 	}
 
-	public class EnpointsRegisterFailedException(string message, IEnumerable<string> failingImplementations) : Exception(message)
+	public class EnpointsRegisterFailedException(IEnumerable<string> failingImplementations) : Exception("One or more endpoints failed to register")
 	{
 		public IEnumerable<string> FailingImplementations { get; set; } = failingImplementations;
 	}
